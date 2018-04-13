@@ -3,4 +3,8 @@
     <string name="plain_text">Plain text</string>
     <string name="key">Key</string>
     <string name="crypt">Crypt!</string>
+    <string name="title_activity_sdes">SDesActivity</string>
+    <string name="open_sdes_activity_label">S-Des</string>
+    <string name="required_field">Required field</string>
+    <string name="sdes_invalid_key">Invalid key</string>
 </resources>
