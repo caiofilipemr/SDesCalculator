@@ -19,17 +19,28 @@ class SDesCrypt {
     fun crypt(plainText: String, key: String): String {
         val (k1, k2) = generateSubKeys(key)
         return plainText.map {
-            f(sw(f(it.toString().permut(ip), k1)), k2).permut(ip_i)
-        }.toString()
+            process(it, k1, k2).binToAscii()
+        }.joinToString { it }
     }
 
-    fun decrypt(cryptedText: String, key: String) {
-        val (k1, k2) = generateSubKeys(key)
+    private fun process(w: Char, k1: String, k2: String): String {
+        val ip = w.toBin(8).permut(ip)
+        val f1 = f(ip, k1)
+        val l1r1 = sw(f1)
+        val f2 = f(l1r1, k2)
+        return f2.permut(ip_i)
+    }
 
+    fun decrypt(cryptedText: String, key: String): String {
+        val (k1, k2) = generateSubKeys(key)
+        return cryptedText.map {
+            process(it, k2, k1).binToAscii()
+        }.joinToString { it }
     }
 
     private fun generateSubKeys(key: String): Pair<String, String> {
-        val ls1 = Pair(key.substring(0, 5) shiftLeft 1, key.substring(5, 10) shiftLeft 1)
+        val permuted = key.permut(p10)
+        val ls1 = Pair(permuted.substring(0, 5) shiftLeft 1, permuted.substring(5, 10) shiftLeft 1)
         val k1 = (ls1.first + ls1.second).permut(p8)
         val ls2 = Pair(ls1.first shiftLeft 2, ls1.second shiftLeft 2)
         val k2 = (ls2.first + ls2.second).permut(p8)
@@ -40,12 +51,12 @@ class SDesCrypt {
         val (l0, r0) = w.pairSplit()
         val (s0, s1) = genSIndexes(r0.permut(ep), key)
         val lf = getSValue(s0, s1).permut(p4).binToByte() xor l0.binToByte()
-        return lf.toBin() + r0
+        return lf.toBin(4) + r0
     }
 
     private fun genSIndexes(w: String, k: String): Pair<String, String> {
         val xor = w.binToByte() xor k.binToByte()
-        return xor.toBin().pairSplit()
+        return xor.toBin(8).pairSplit()
     }
 
     private fun getSValue(sl: String, sr: String): String {
@@ -53,7 +64,7 @@ class SDesCrypt {
         val slColumn = getSColumn(sl)
         val srRow = getSRow(sr)
         val srColumn = getSColumn(sr)
-        return s1[slRow * 4 + slColumn].toBin() + s2[srRow * 4 + srColumn].toBin()
+        return s1[slRow * 4 + slColumn].toBin(2) + s2[srRow * 4 + srColumn].toBin(2)
     }
 
     private fun getSRow(s0: String) =
