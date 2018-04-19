@@ -42,6 +42,12 @@ fun Char.toBin() = toInt().toBin()
 
 fun Char.toBin(minLength: Int) = toInt().toBin(minLength)
 
+fun String.toBin(minLength: Int, separator: String): String {
+    return map {
+        it.toBin(minLength)
+    }.joinToString(separator = separator) { it }
+}
+
 fun String.binToByte(): Int {
     var byte = 0
     forEach { byte = (byte + (it - '0')) shl 1 }

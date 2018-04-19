@@ -7,14 +7,14 @@
     tools:context="com.daguerreo.crypt.sdescalculator.sdes.SDesActivity">
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilPlainText"
-        android:hint="@string/plain_text"
+        android:id="@+id/tilSdesText"
+        android:hint="@string/sdes_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/etPlainText"
+            android:id="@+id/etSdesText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </android.support.design.widget.TextInputLayout>
@@ -24,25 +24,55 @@
         android:hint="@string/key"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tilPlainText">
+        android:layout_below="@id/tilSdesText">
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/etKey"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="10"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/tvResult"
-        android:layout_width="match_parent"
+        android:id="@+id/tvKeyHelper"
+        android:text="@string/sdes_key_helper"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/textview_font_size"
         android:layout_below="@id/tilKey"/>
 
-    <android.support.v7.widget.AppCompatButton
-        android:text="@string/crypt"
+    <LinearLayout
+        android:id="@+id/llSdesButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:onClick="crypt"/>
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/default_padding"
+        android:layout_below="@id/tvKeyHelper">
+
+        <android.support.v7.widget.AppCompatButton
+            android:text="@string/encrypt"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:onClick="encrypt"/>
+        <android.support.v7.widget.AppCompatButton
+            android:text="@string/decrypt"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:onClick="decrypt"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/dvdSdes"
+        style="@style/Divider"
+        android:layout_below="@id/llSdesButtons"/>
+
+    <fragment
+        android:id="@+id/step_by_step_fragment"
+        android:name="com.daguerreo.crypt.sdescalculator.StepByStepFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dvdSdes" />
 </RelativeLayout>

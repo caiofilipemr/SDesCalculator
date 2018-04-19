@@ -1,10 +1,17 @@
 <resources>
-    <string name="app_name">SDesCalculator</string>
-    <string name="plain_text">Plain text</string>
+    <string name="app_name">Krypt0s</string>
+    <string name="sdes_text">Plain text or Crypted text</string>
     <string name="key">Key</string>
-    <string name="crypt">Crypt!</string>
-    <string name="title_activity_sdes">SDesActivity</string>
+    <string name="encrypt">Encrypt!</string>
+    <string name="title_activity_sdes">SDes</string>
     <string name="open_sdes_activity_label">S-Des</string>
     <string name="required_field">Required field</string>
     <string name="sdes_invalid_key">Invalid key</string>
+    <string name="decrypt">decrypt!</string>
+    <string name="binary_representation">binary representation</string>
+    <string name="orInDecimal">or in decimal</string>
+    <string name="encrypted">encrypted</string>
+    <string name="decrypted">decrypted</string>
+    <string name="text">text</string>
+    <string name="sdes_key_helper">Length must be 10. Only 0 and 1 are accepted.</string>
 </resources>
